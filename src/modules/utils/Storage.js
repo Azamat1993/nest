@@ -1,5 +1,6 @@
+export const  storageKey = 'state';
+
 const Storage = (function(){
-  const storageKey = 'state';
 
   const getStore = () => {
     try {
@@ -37,4 +38,4 @@ const Storage = (function(){
   }
 }());
 
-module.exports = Storage;
+export default Storage;

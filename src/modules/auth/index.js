@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import qs from 'query-string';
+import { connect } from 'react-redux';
+import AuthHOC from './HOC/AuthHOC';
+
+import { login } from './actions';
 
 class Auth extends Component {
   onLogin = () => {
@@ -8,8 +12,8 @@ class Auth extends Component {
 
   componentDidMount() {
     const parsed = qs.parse(window.location.search) || {};
-    if (parsed) {
-      // @todo login
+    if (parsed.code) {
+      this.props.login(parsed.code);
     }
   }
 
@@ -22,4 +26,10 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+export default AuthHOC({
+    redirectUrl: '/home',
+    shouldRedirect: (loggedIn) => loggedIn
+  })(
+  connect(null, {
+    login
+  })(Auth));

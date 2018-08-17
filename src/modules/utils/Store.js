@@ -6,9 +6,9 @@ import reducers from '../reducers';
 import Storage from './Storage';
 
 const Store = (function(){
-  var instance;
+  let instance;
 
-  function getInstance() {
+  const getInstance = () => {
     if (!instance) {
       const epicMiddleware = createEpicMiddleware();
       instance = createStore(reducers, applyMiddleware(epicMiddleware), getInitialState());
@@ -17,7 +17,7 @@ const Store = (function(){
     return instance;
   }
 
-  function getInitialState() {
+  const getInitialState = () => {
 
   }
 

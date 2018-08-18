@@ -20,7 +20,7 @@ const Store = (function(){
     return instance;
   }
 
-  const subscribe = () => {
+  const asObservable = () => {
     if (!instance) {
       getInstance();
     }
@@ -43,9 +43,9 @@ const Store = (function(){
     return Storage.getStore();
   }
 
-  subscribe()
+  asObservable()
     .pipe(
-      throttleTime(1000)
+      throttleTime(1000),
     )
     .subscribe((storeState) => {
       Storage.setStore(storeState);
@@ -53,7 +53,8 @@ const Store = (function(){
 
   return {
     getInstance,
-    subscribe
+    getInitialState,
+    asObservable
   }
 }());
 

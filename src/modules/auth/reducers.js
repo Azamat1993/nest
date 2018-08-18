@@ -2,7 +2,7 @@ import * as types from './types';
 
 const initialState = {
   loggedIn: false,
-  userInfo: null
+  authInfo: null
 }
 
 const auth = (state = initialState, action = {}) => {
@@ -11,7 +11,7 @@ const auth = (state = initialState, action = {}) => {
       const { payload } = action;
       return Object.assign({}, state, {
         loggedIn: true,
-        userInfo: payload
+        authInfo: payload
       });
     case types.LOGOUT:
       return initialState;

@@ -30,7 +30,6 @@ class CardInfo extends Component {
 
   componentDidMount() {
     const  { match: {params: {device_type, device_id}}, requestDevice } = this.props;
-    console.log(requestDevice);
     requestDevice(device_type, device_id);
   }
 

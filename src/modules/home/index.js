@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 
-import { requestDevices } from './actions';
+import { setDevices } from './actions';
 import AuthHOC from '../auth/HOC/AuthHOC';
 import Card from './containers/Card';
 import CardInfo from './containers/CardInfo';
+import Axios from '../utils/Axios';
 
 const Container = styled.div`
   background-image: linear-gradient(180deg,#3272cf 0,#589dc7 50%,#8ab7cb);
@@ -16,8 +17,20 @@ const Container = styled.div`
 `
 
 class Home extends Component {
+  constructor() {
+    super();
+  }
+
   componentDidMount() {
-    this.props.requestDevices();
+    this.subscription = Axios.eventStream.subscribe((data) => {
+      this.props.setDevices(data);
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   render(){
@@ -43,5 +56,5 @@ export default AuthHOC({
   redirectUrl: '/auth',
   shouldRedirect: (loggedIn) => !loggedIn
 })(connect(mapStateToProps, {
-  requestDevices
+  setDevices
 })(Home));

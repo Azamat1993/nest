@@ -1,11 +1,56 @@
 import axios from 'axios';
 import { tap, map, distinctUntilChanged } from 'rxjs/operators';
+import EventSource from 'eventsource';
+import { Subject } from 'rxjs';
 
 import Store from './Store';
 
+const NEST_URL = 'https://cors-anywhere.herokuapp.com/https://developer-api.nest.com';
+
 var Axios = (function(){
+  const eventStream = new Subject();
+  let source;
+
+  const initializeEventStream = (token) => {
+    const headers = {
+      "Authorization" : token
+    };
+
+    if (!source) {
+      source = new EventSource(NEST_URL, {"headers": headers});
+
+      source.addEventListener('put', (event) => {
+        console.log(event);
+        eventStream.next(JSON.parse(event.data).data);
+      });
+
+      source.addEventListener('open', () => {
+        console.log('connection opened');
+      });
+
+      source.addEventListener('auth_revoked', function(event) {
+         console.log('Authentication token was revoked.');
+         // Re-authenticate your user here.
+      });
+
+      source.addEventListener('error', function(event) {
+          if (event.readyState === EventSource.CLOSED) {
+              console.error('Connection was closed!', event);
+          } else {
+              console.error('An unknown error occurred: ', event);
+          }
+      }, false);
+    }
+  }
+
   const setAccessToken = (token) => {
-    axios.defaults.headers.common['Authorization'] =  `Bearer ${token}`;
+    if (token) {
+      const access_token = `Bearer ${token}`;
+      axios.defaults.headers.common['Authorization'] = access_token;
+      initializeEventStream(access_token);
+    } else {
+      axios.defaults.headers.common['Authorization'] = null;
+    }
   }
 
   const getAccessTokenFromState = (store) => {
@@ -23,7 +68,7 @@ var Axios = (function(){
   }
 
   const initialize = () => {
-    axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/https://developer-api.nest.com';
+    axios.defaults.baseURL = NEST_URL;
     setInitialAccessToken();
   }
 
@@ -37,6 +82,10 @@ var Axios = (function(){
     ).subscribe();
 
   initialize();
+
+  return {
+    eventStream
+  };
 }());
 
 export default Axios;

@@ -1,8 +1,9 @@
 import * as types from './types';
+import axios from 'axios';
 
 const initialState = {
   loggedIn: false,
-  authInfo: null
+  userInfo: null
 }
 
 const auth = (state = initialState, action = {}) => {
@@ -11,7 +12,7 @@ const auth = (state = initialState, action = {}) => {
       const { payload } = action;
       return Object.assign({}, state, {
         loggedIn: true,
-        authInfo: payload
+        userInfo: payload
       });
     case types.LOGOUT:
       return initialState;

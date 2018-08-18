@@ -18,7 +18,7 @@ const Store = (function(){
   }
 
   const getInitialState = () => {
-
+    return Storage.getStore();
   }
 
   return {

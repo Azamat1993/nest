@@ -16,6 +16,20 @@ const getDevicesEpic= action$ =>
     )
   );
 
+const getDeviceEpic = action$ =>
+  action$
+  .ofType(types.REQUEST_DEVICE)
+  .pipe(
+    switchMap(({payload}) => {
+      return from(axios.get(`/devices/${payload.device_type}/${payload.device_id}`))
+        .pipe(map(res => ({
+          type: types.SET_DEVICE,
+          payload: res
+        })))
+    })
+  )
+
 export default combineEpics(
-  getDevicesEpic
+  getDevicesEpic,
+  getDeviceEpic
 )

@@ -1,18 +1,23 @@
 import * as types from './types';
 
 const initialState = {
-  devices: []
+  devices: [],
+  currentDevice: null
 }
 
-const auth = (state = initialState, action = {}) => {
+const devicesReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case types.SET_DEVICES:
       return Object.assign({}, state, {
         devices: action.payload
-      })
+      });
+    case types.SET_DEVICE:
+      return Object.assign({}, state, {
+        currentDevice: action.payload
+      });
     default:
       return state;
   }
 }
 
-export default auth;
+export default devicesReducer;

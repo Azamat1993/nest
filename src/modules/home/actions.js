@@ -5,3 +5,13 @@ export const requestDevices = () => {
     type: types.REQUEST_DEVICES
   }
 }
+
+export const requestDevice = (device_type, device_id) => {
+  return {
+    type: types.REQUEST_DEVICE,
+    payload: {
+      device_type,
+      device_id
+    }
+  }
+}

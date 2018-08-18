@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const OuterFiller = styled.div`
   position: fixed;
@@ -21,8 +22,16 @@ const Container = styled.div`
 `
 
 class CardInfo extends Component {
-  onClose = () => {
-    this.props.history.push('/home');
+  onClose = (e) => {
+    if (e.target === e.currentTarget) {
+      this.props.history.push('/home');
+    }
+  }
+
+  onChange = (e) => {
+    axios.put(`/devices/thermostats/4dBoOXRpX_akxgWM4eCHDj3m708tVO-i`, {
+      target_temperature_f: 70
+    });
   }
 
   render() {
@@ -30,8 +39,10 @@ class CardInfo extends Component {
     return (
       <OuterFiller onClick={this.onClose}>
         <Container>
-          {device && device.humidity}
+          {device && device.target_temperature_f}
         </Container>
+
+        <input type="text" onClick={this.onChange} defaultValue={device.target_temperature_f}/>
       </OuterFiller>
     )
   }

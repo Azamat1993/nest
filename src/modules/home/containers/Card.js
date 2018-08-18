@@ -13,12 +13,12 @@ const Container = styled.div`
 `
 
 const Card = ({item, itemType}) => {
-  const { name, device_id, humidity } = item;
+  const { name, device_id, target_temperature_f } = item;
   return (
     <Link to={`/home/${itemType}/${device_id}`}>
       <Container>
-        {name} 
-        <p>{humidity}</p>
+        {name}
+        <p>{target_temperature_f}</p>
       </Container>
     </Link>
   )

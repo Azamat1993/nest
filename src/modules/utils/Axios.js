@@ -10,6 +10,12 @@ var Axios = (function(){
     axios.defaults.headers.common['Authorization'] =  `Bearer ${token}`;
   }
 
+  const getAccessTokenFromState = (store) => {
+    if (store && store.auth && store.auth.authInfo) {
+      return store.auth.authInfo.access_token;
+    }
+  }
+
   const setInitialAccessToken = () => {
     const initialState = Store.getInitialState();
     const access_token = getAccessTokenFromState(initialState);
@@ -18,12 +24,9 @@ var Axios = (function(){
     }
   }
 
-  setInitialAccessToken();
-
-  function getAccessTokenFromState (store) {
-    if (store && store.auth && store.auth.authInfo) {
-      return store.auth.authInfo.access_token;
-    }
+  const initialize = () => {
+    axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/https://developer-api.nest.com';
+    setInitialAccessToken();
   }
 
   Store.asObservable()
@@ -34,6 +37,8 @@ var Axios = (function(){
         setAccessToken(access_token);
       })
     ).subscribe();
+
+  initialize();
 }());
 
 export default Axios;

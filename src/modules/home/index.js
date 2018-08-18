@@ -32,17 +32,18 @@ class Home extends Component {
   }
 
   render(){
+    const { devices } = this.props;
     return (
       <Container>
-        {Object.keys(this.props.devices).map((deviceName, i) => {
-          const device = this.props.devices[deviceName];
+        {devices && Object.keys(devices).map((deviceName, i) => {
+          const device = devices[deviceName];
           return Object.keys(device).map((deviceKey, deviceIndex) => {
             return <Card item={device[deviceKey]} itemType={deviceName} key={deviceKey} />
           });
         })}
         <Route path="/home/:device_type/:device_id" component={(props) => {
           const { match: { params: {device_type, device_id}}} = props;
-          const device_types = this.props.devices[device_type];
+          const device_types = devices[device_type];
           let device = null;
           if (device_types) {
             device = device_types[device_id];

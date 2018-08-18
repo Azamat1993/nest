@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { tap } from 'rxjs/operators';
+import { tap, map, distinctUntilChanged } from 'rxjs/operators';
 
 import Store from './Store';
 
@@ -28,12 +28,10 @@ var Axios = (function(){
 
   Store.asObservable()
     .pipe(
-      tap((storeState) => {
-        const access_token = getAccessTokenFromState(storeState);
-        if (access_token !== prevAccessToken) {
-          setAccessToken(access_token);
-          prevAccessToken = access_token;
-        }
+      map((storeState) => getAccessTokenFromState(storeState)),
+      distinctUntilChanged(),
+      tap((access_token) => {
+        setAccessToken(access_token);
       })
     ).subscribe();
 }());

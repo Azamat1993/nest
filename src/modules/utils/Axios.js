@@ -4,8 +4,6 @@ import { tap, map, distinctUntilChanged } from 'rxjs/operators';
 import Store from './Store';
 
 var Axios = (function(){
-  let prevAccessToken;
-
   const setAccessToken = (token) => {
     axios.defaults.headers.common['Authorization'] =  `Bearer ${token}`;
   }

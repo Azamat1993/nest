@@ -1,20 +1,15 @@
 import * as types from './types';
 
 const initialState = {
-  loggedIn: false,
-  userInfo: null
+  devices: []
 }
 
 const auth = (state = initialState, action = {}) => {
   switch (action.type) {
-    case types.LOGIN_SUCCESS:
-      const { payload } = action;
+    case types.DATA:
       return Object.assign({}, state, {
-        loggedIn: true,
-        userInfo: payload
-      });
-    case types.LOGOUT:
-      return initialState;
+        devices: action.payload
+      })
     default:
       return state;
   }

@@ -6,7 +6,7 @@ const initialState = {
 
 const auth = (state = initialState, action = {}) => {
   switch (action.type) {
-    case types.DATA:
+    case types.SET_DEVICES:
       return Object.assign({}, state, {
         devices: action.payload
       })

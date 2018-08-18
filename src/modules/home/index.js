@@ -21,7 +21,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  devices: state.data.devices
+  devices: state.devices.devices
 })
 
 export default AuthHOC({

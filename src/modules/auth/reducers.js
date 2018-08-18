@@ -1,9 +1,8 @@
 import * as types from './types';
-import axios from 'axios';
 
 const initialState = {
   loggedIn: false,
-  userInfo: null
+  authInfo: null
 }
 
 const auth = (state = initialState, action = {}) => {

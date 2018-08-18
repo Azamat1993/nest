@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-import { requestDevice } from '../actions';
 
 const OuterFiller = styled.div`
   position: fixed;
@@ -28,22 +25,16 @@ class CardInfo extends Component {
     this.props.history.push('/home');
   }
 
-  componentDidMount() {
-    const  { match: {params: {device_type, device_id}}, requestDevice } = this.props;
-    requestDevice(device_type, device_id);
-  }
-
   render() {
+    const { device } = this.props;
     return (
       <OuterFiller onClick={this.onClose}>
         <Container>
-          sadf
+          {device && device.humidity}
         </Container>
       </OuterFiller>
     )
   }
 }
 
-export default connect(null, {
-  requestDevice
-})(CardInfo);
+export default CardInfo;

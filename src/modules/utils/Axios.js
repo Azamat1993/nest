@@ -20,7 +20,6 @@ var Axios = (function(){
       source = new EventSource(NEST_URL, {"headers": headers});
 
       source.addEventListener('put', (event) => {
-        console.log(event);
         eventStream.next(JSON.parse(event.data).data);
       });
 

@@ -17,13 +17,11 @@ const Container = styled.div`
 `
 
 class Home extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
+    const { setDevices } = this.props;
+
     this.subscription = Axios.eventStream.subscribe((data) => {
-      this.props.setDevices(data);
+      setDevices(data);
     });
   }
 
@@ -42,7 +40,15 @@ class Home extends Component {
             return <Card item={device[deviceKey]} itemType={deviceName} key={deviceKey} />
           });
         })}
-        <Route path="/home/:device_type/:device_id" component={CardInfo}/>
+        <Route path="/home/:device_type/:device_id" component={(props) => {
+          const { match: { params: {device_type, device_id}}} = props;
+          const device_types = this.props.devices[device_type];
+          let device = null;
+          if (device_types) {
+            device = device_types[device_id];
+          }
+          return <CardInfo device={device} {...props}/>
+        }}/>
       </Container>
     )
   }

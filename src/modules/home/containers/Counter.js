@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  color: ${props => props.updating ? 'red' : 'black'};
+`
 
 class Counter extends Component {
   constructor() {
@@ -7,11 +12,15 @@ class Counter extends Component {
   }
 
   runCounter(prev, next) {
+    const currentElement = this.element.current;
     this.animation = setTimeout(() => {
       if (prev !== next) {
         const nextPrev = prev < next ? prev + 1 : prev - 1;
-        this.element.current.innerHTML = nextPrev;
+        currentElement.innerHTML = nextPrev;
+        currentElement.style = 'color: red';
         this.runCounter(nextPrev, next);
+      } else {
+        currentElement.style = 'color: black';
       }
     }, 60);
   }
@@ -41,7 +50,9 @@ class Counter extends Component {
 
   render() {
     return (
-      <div ref={this.element}></div>
+      <Container>
+        <div ref={this.element}></div>
+      </Container>
     )
   }
 }

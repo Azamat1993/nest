@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import Counter from './Counter';
 
 const OuterFiller = styled.div`
   position: fixed;
@@ -39,7 +41,7 @@ class CardInfo extends Component {
     return (
       <OuterFiller onClick={this.onClose}>
         <Container>
-          {device && device.target_temperature_f}
+          {device && <Counter value={device.target_temperature_f}/>}
         </Container>
 
         <input type="text" onClick={this.onChange} defaultValue={device.target_temperature_f}/>
@@ -48,4 +50,18 @@ class CardInfo extends Component {
   }
 }
 
-export default CardInfo;
+const mapStateToProps = (state, ownProps) => {
+  const { match: { params: {device_type, device_id}}} = ownProps;
+  const { devices } = state;
+  const device_types = devices.devices[device_type];
+  let device = null;
+  if (device_types) {
+    device = device_types[device_id];
+  }
+
+  return {
+    device
+  }
+}
+
+export default connect(mapStateToProps)(CardInfo);

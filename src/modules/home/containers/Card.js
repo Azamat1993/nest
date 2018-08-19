@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Counter from './Counter';
 
 const Container = styled.div`
   width: 9rem;
@@ -18,7 +19,7 @@ const Card = ({item, itemType}) => {
     <Link to={`/home/${itemType}/${device_id}`}>
       <Container>
         {name}
-        <p>{target_temperature_f}</p>
+        <Counter value={target_temperature_f}/>
       </Container>
     </Link>
   )

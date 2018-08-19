@@ -13,7 +13,7 @@ class Counter extends Component {
         this.element.current.innerHTML = nextPrev;
         this.runCounter(nextPrev, next);
       }
-    }, 200);
+    }, 60);
   }
 
   componentDidMount() {
@@ -22,6 +22,9 @@ class Counter extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.value !== this.props.value) {
+      if (this.animation) {
+        clearTimeout(this.animation);
+      }
       this.runCounter(prevProps.value, this.props.value);
     }
   }

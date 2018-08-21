@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 class History extends Component {
   render() {
-    const { items, match: {params: {device_id}} } = this.props;
+    const { items } = this.props;
     return (
       <div>
-        {items[device_id] && items[device_id].map((item, i) => {
+        {items && items.map((item, i) => {
           return <div key={i}>
             <p><span>Type of value changed: {item.type}</span></p>
           </div>
@@ -17,8 +17,11 @@ class History extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  items: state.history.items
-})
+const mapStateToProps = (state, ownProps) => {
+  const { match: {params: {device_id}} } = ownProps;
+  return {
+    items: state.history.items[device_id]
+  }
+}
 
 export default withRouter(connect(mapStateToProps)(History));

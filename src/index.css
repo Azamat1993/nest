@@ -7,3 +7,8 @@
 html {
   font: 10px 'Roboto', sans-serif;
 }
+
+body {
+  background-image: linear-gradient(180deg,#3272cf 0,#589dc7 50%,#8ab7cb);
+  background-color: #8ab7cb;
+}

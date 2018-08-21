@@ -31,6 +31,7 @@ const H1 = styled.h1`
 `;
 
 const HistoryContainer = styled.div`
+  max-height: 50vh;
   overflow: auto;
   flex: 1;
 `;

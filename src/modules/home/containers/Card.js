@@ -7,21 +7,38 @@ const Container = styled.div`
   width: 9rem;
   height: 9rem;
   border-radius: 50%;
-  background-image: linear-gradient(180deg,#3272cf 0,#589dc7 50%,#8ab7cb);
+  background-image: linear-gradient(180deg,#333333, #000000);
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid black;
+
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
+`;
+
+const Title = styled.h3`
+  color: white;
+`;
+
+const Subtitle = styled.h4`
+  color: white;
+  text-align: center;
+  margin-top: 1rem;
 `
 
 const Card = ({item, itemType}) => {
   const { name, device_id, target_temperature_f } = item;
   return (
-    <Link to={`/home/${itemType}/${device_id}`}>
-      <Container>
-        {name}
-        <Counter value={target_temperature_f}/>
-      </Container>
-    </Link>
+    <Container>
+      <Link to={`/home/${itemType}/${device_id}`}>
+          <Title>{name}</Title>
+          <Subtitle>
+            <Counter value={target_temperature_f}/>
+          </Subtitle>
+      </Link>
+    </Container>
   )
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  color: ${props => props.updating ? 'red' : 'black'};
+  color: ${props => props.updating && 'red' };
 `
 
 class Counter extends Component {
@@ -20,7 +20,7 @@ class Counter extends Component {
         currentElement.style = 'color: red';
         this.runCounter(nextPrev, next);
       } else {
-        currentElement.style = 'color: black';
+        currentElement.style = 'color: inherit;';
       }
     }, 60);
   }

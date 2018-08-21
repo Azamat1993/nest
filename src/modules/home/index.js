@@ -13,9 +13,13 @@ import CardInfo from './containers/CardInfo';
 import Axios from '../utils/Axios';
 
 const Container = styled.div`
-  background-image: linear-gradient(180deg,#3272cf 0,#589dc7 50%,#8ab7cb);
-  background-color: #8ab7cb;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InnerContainer = styled.div`
 `
 
 class Home extends Component {
@@ -60,21 +64,18 @@ class Home extends Component {
     }
   }
 
-  onLogout = () => {
-    this.props.logout();
-  }
-
   render(){
     const { devices } = this.props;
     return (
       <Container>
-        {devices && Object.keys(devices).map((deviceName, i) => {
-          const device = devices[deviceName];
-          return Object.keys(device).map((deviceKey, deviceIndex) => {
-            return <Card item={device[deviceKey]} itemType={deviceName} key={deviceKey} />
-          });
-        })}
-        <button onClick={this.onLogout}>Log out</button>
+        <InnerContainer>
+          {devices && Object.keys(devices).map((deviceName, i) => {
+            const device = devices[deviceName];
+            return Object.keys(device).map((deviceKey, deviceIndex) => {
+              return <Card item={device[deviceKey]} itemType={deviceName} key={deviceKey} />
+            });
+          })}
+        </InnerContainer>
         <Route path="/home/:device_type/:device_id" component={CardInfo} />
       </Container>
     )
@@ -90,6 +91,5 @@ export default AuthHOC({
   shouldRedirect: (loggedIn) => !loggedIn
 })(connect(mapStateToProps, {
   setDevices,
-  setHistory,
-  logout
+  setHistory
 })(Home));

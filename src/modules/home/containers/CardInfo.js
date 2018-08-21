@@ -34,7 +34,6 @@ const HistoryContainer = styled.div`
   max-height: 50vh;
   overflow: auto;
   flex: 1;
-  padding: 1rem;
   border-left: 1px solid black;
 `;
 

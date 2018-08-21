@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  padding: 1rem;
+  overflow: hidden;
+`;
+
+const Item = styled.div`
+  &:not(:last-child) {
+    margin-bottom: .5rem;
+  }
+`
 
 class History extends Component {
   render() {
     const { items } = this.props;
     return (
-      <div>
+      <Container>
         {items && items.map((item, i) => {
-          return <div key={i}>
+          return <Item key={i}>
             <p><span>Type of value changed: {item.type}</span></p>
-          </div>
+          </Item>
         })}
-      </div>
+      </Container>
     )
   }
 }

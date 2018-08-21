@@ -52,7 +52,7 @@ class Home extends Component {
               if (device[prop] !== prevDevice[prop]) {
                 setHistory({
                   prevValue: prevDevice[prop],
-                  nextValue: devices[prop],
+                  nextValue: device[prop],
                   type: prop,
                   device_id: id
                 });

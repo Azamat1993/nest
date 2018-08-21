@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import InfoItemMapper from '../home/containers/InfoItemMapper';
 
 const Container = styled.div`
   padding: 1rem;
@@ -12,16 +13,23 @@ const Item = styled.div`
   &:not(:last-child) {
     margin-bottom: .5rem;
   }
-`
+`;
+
+
 
 class History extends Component {
   render() {
     const { items } = this.props;
+    console.log(items);
     return (
       <Container>
         {items && items.map((item, i) => {
           return <Item key={i}>
-            <p><span>Type of value changed: {item.type}</span></p>
+            <p>
+              <span>{InfoItemMapper[item.type].title}</span>
+              <span> changed from {item.prevValue}</span>
+              <span> to: {item.nextValue}</span>
+            </p>
           </Item>
         })}
       </Container>

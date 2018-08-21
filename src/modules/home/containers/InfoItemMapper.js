@@ -1,0 +1,15 @@
+export default {
+  target_temperature_f: {
+    title: 'Temperature f',
+    icon: 'temperature',
+    withCounter: true
+  },
+  humidity: {
+    title: 'Humidity',
+    icon: 'humidity',
+    withCounter: true
+  },
+  name_long: {
+    title: 'Name'
+  }
+}

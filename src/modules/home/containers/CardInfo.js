@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Counter from './Counter';
 import History from '../../history';
+import InfoItem from './InfoItem';
 
 const OuterFiller = styled.div`
   position: fixed;
@@ -75,8 +76,7 @@ class CardInfo extends Component {
               <H1>{device.name}</H1>
               <Container>
                 <InfoContainer>
-                  <Counter value={device.target_temperature_f}/>
-                  <Counter value={device.humidity} />
+                  <InfoItem item={device} />
                 </InfoContainer>
                 <HistoryContainer>
                   <History />

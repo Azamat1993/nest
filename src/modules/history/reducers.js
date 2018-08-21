@@ -12,6 +12,7 @@ const history = (state = initialState, action = {}) => {
       if (!newItems[device_id]) {
         newItems[device_id] = [];
       }
+      action.payload.createdAt = new Date();
       newItems[device_id].push(action.payload);
       return Object.assign({}, state, {
         items: newItems

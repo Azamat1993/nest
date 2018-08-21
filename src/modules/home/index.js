@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 
 import { setDevices } from './actions';
 import { setHistory } from '../history/actions';
+import { logout } from '../auth/actions';
 import AuthHOC from '../auth/HOC/AuthHOC';
 import Card from './containers/Card';
 import CardInfo from './containers/CardInfo';
@@ -34,19 +35,33 @@ class Home extends Component {
 
   componentDidUpdate(prevProps) {
     const { devices, setHistory } = this.props;
-    const thermostats = prevProps.devices.thermostats;
-    for (var id in thermostats) {
-      for (var prop in thermostats[id]) {
-        if (thermostats[id][prop] !== devices.thermostats[id][prop]) {
-          setHistory({
-            prevValue: thermostats[id][prop],
-            nextValue: devices.thermostats[id][prop],
-            type: prop,
-            device_id: id
-          });
+    const prevDevices = prevProps.devices;
+    for (var device_type in devices) {
+      if (devices.hasOwnProperty(device_type) && prevDevices.hasOwnProperty(device_type)) {
+        var devices_group = devices[device_type];
+        var prev_devices_group = prevDevices[device_type];
+        for (var id in devices_group) {
+          var device = devices_group[id];
+          var prevDevice = prev_devices_group[id];
+          if (device && prevDevice) {
+            for (var prop in device) {
+              if (device[prop] !== prevDevice[prop]) {
+                setHistory({
+                  prevValue: prevDevice[prop],
+                  nextValue: devices[prop],
+                  type: prop,
+                  device_id: id
+                });
+              }
+            }
+          }
         }
       }
     }
+  }
+
+  onLogout = () => {
+    this.props.logout();
   }
 
   render(){
@@ -59,6 +74,7 @@ class Home extends Component {
             return <Card item={device[deviceKey]} itemType={deviceName} key={deviceKey} />
           });
         })}
+        <button onClick={this.onLogout}>Log out</button>
         <Route path="/home/:device_type/:device_id" component={CardInfo} />
       </Container>
     )
@@ -74,5 +90,6 @@ export default AuthHOC({
   shouldRedirect: (loggedIn) => !loggedIn
 })(connect(mapStateToProps, {
   setDevices,
-  setHistory
+  setHistory,
+  logout
 })(Home));

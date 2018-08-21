@@ -22,6 +22,12 @@ const Container = styled.div`
   width: 70%;
   background-color: #fff;
   padding: 3rem;
+`;
+
+const H1 = styled.h1`
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 2rem;
 `
 
 class CardInfo extends Component {
@@ -42,7 +48,9 @@ class CardInfo extends Component {
     return (
       <OuterFiller onClick={this.onClose}>
         <Container>
-          {device && <div>
+          {device &&
+          <div>
+            <H1>{device.name}</H1>
             <Counter value={device.target_temperature_f}/>
             <Counter value={device.humidity} />
           </div>}
@@ -57,10 +65,12 @@ class CardInfo extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { match: { params: {device_type, device_id}}} = ownProps;
   const { devices } = state;
-  const device_types = devices.devices[device_type];
   let device = null;
-  if (device_types) {
-    device = device_types[device_id];
+  if (devices.devices) {
+    const device_types = devices.devices[device_type];
+    if (device_types) {
+      device = device_types[device_id];
+    }
   }
 
   return {

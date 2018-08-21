@@ -30,7 +30,9 @@ class Counter extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.value !== this.props.value) {
+    if (prevProps.value === undefined) {
+        this.element.current.innerHTML = this.props.value;
+    } else if (prevProps.value !== this.props.value) {
       if (this.animation) {
         clearTimeout(this.animation);
       }

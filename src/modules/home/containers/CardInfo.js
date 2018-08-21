@@ -43,6 +43,13 @@ class CardInfo extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    const { device, history } = this.props;
+    if (device === null) {
+      history.push('/home');
+    }
+  }
+
   render() {
     const { device } = this.props;
     return (
@@ -56,21 +63,18 @@ class CardInfo extends Component {
           </div>}
         </Container>
 
-                  <History />
+        <History />
       </OuterFiller>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { match: { params: {device_type, device_id}}} = ownProps;
-  const { devices } = state;
   let device = null;
-  if (devices.devices) {
-    const device_types = devices.devices[device_type];
-    if (device_types) {
-      device = device_types[device_id];
-    }
+  const { match: { params: {device_type, device_id}}} = ownProps;
+  const device_types = state.devices.devices[device_type];
+  if (device_types) {
+    device = device_types[device_id];
   }
 
   return {

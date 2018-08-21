@@ -17,7 +17,7 @@ const OuterFiller = styled.div`
   background-color: rgba(0,0,0,.4);
 `;
 
-const Container = styled.div`
+const ModalContainer = styled.div`
   height: auto;
   width: 70%;
   background-color: #fff;
@@ -28,6 +28,19 @@ const H1 = styled.h1`
   padding: 1rem 0;
   text-align: center;
   font-size: 2rem;
+`;
+
+const HistoryContainer = styled.div`
+  overflow: auto;
+  flex: 1;
+`;
+
+const InfoContainer = styled.div`
+  flex: 2;
+`;
+
+const Container = styled.div`
+  display: flex;
 `
 
 class CardInfo extends Component {
@@ -54,16 +67,22 @@ class CardInfo extends Component {
     const { device } = this.props;
     return (
       <OuterFiller onClick={this.onClose}>
-        <Container>
+        <ModalContainer>
           {device &&
-          <div>
-            <H1>{device.name}</H1>
-            <Counter value={device.target_temperature_f}/>
-            <Counter value={device.humidity} />
-          </div>}
-        </Container>
-
-        <History />
+            <div>
+              <H1>{device.name}</H1>
+              <Container>
+                <InfoContainer>
+                  <Counter value={device.target_temperature_f}/>
+                  <Counter value={device.humidity} />
+                </InfoContainer>
+                <HistoryContainer>
+                  <History />
+                </HistoryContainer>
+              </Container>
+            </div>
+          }
+        </ModalContainer>
       </OuterFiller>
     )
   }

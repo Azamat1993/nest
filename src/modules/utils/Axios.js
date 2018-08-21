@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 import Store from './Store';
 
-const NEST_URL = 'https://cors-anywhere.herokuapp.com/https://developer-api.nest.com';
+const NEST_URL = ' https://young-hollows-50284.herokuapp.com/https://developer-api.nest.com';
 
 var Axios = (function(){
   const eventStream = new Subject();

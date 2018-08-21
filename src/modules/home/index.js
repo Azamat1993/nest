@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 
 import { setDevices } from './actions';
+import { setHistory } from '../history/actions';
 import AuthHOC from '../auth/HOC/AuthHOC';
 import Card from './containers/Card';
 import CardInfo from './containers/CardInfo';
@@ -28,6 +29,23 @@ class Home extends Component {
   componentWillUnmount() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { devices, setHistory } = this.props;
+    const thermostats = prevProps.devices.thermostats;
+    for (var id in thermostats) {
+      for (var prop in thermostats[id]) {
+        if (thermostats[id][prop] !== devices.thermostats[id][prop]) {
+          setHistory({
+            prevValue: thermostats[id][prop],
+            nextValue: devices.thermostats[id][prop],
+            type: prop,
+            device_id: id
+          });
+        }
+      }
     }
   }
 
@@ -55,5 +73,6 @@ export default AuthHOC({
   redirectUrl: '/auth',
   shouldRedirect: (loggedIn) => !loggedIn
 })(connect(mapStateToProps, {
-  setDevices
+  setDevices,
+  setHistory
 })(Home));

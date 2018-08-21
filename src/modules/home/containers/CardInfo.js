@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Counter from './Counter';
+import History from '../../history';
 
 const OuterFiller = styled.div`
   position: fixed;
@@ -41,10 +42,13 @@ class CardInfo extends Component {
     return (
       <OuterFiller onClick={this.onClose}>
         <Container>
-          {device && <Counter value={device.target_temperature_f}/>}
+          {device && <div>
+            <Counter value={device.target_temperature_f}/>
+            <Counter value={device.humidity} />
+          </div>}
         </Container>
 
-        <input type="text" onClick={this.onChange} defaultValue={device.target_temperature_f}/>
+                  <History />
       </OuterFiller>
     )
   }

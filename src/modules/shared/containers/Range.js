@@ -94,7 +94,7 @@ class Range extends PureComponent {
   render() {
     const { onChange,max ,min, name ,defaultValue } = this.props;
     return (
-      <input type="range" name={name} onChange={onChange} max={max} min={min} defaultValue={defaultValue}/>
+      <Input type="range" name={name} onChange={onChange} max={max} min={min} defaultValue={defaultValue}/>
     )
   }
 }

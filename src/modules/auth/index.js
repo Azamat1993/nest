@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import qs from 'query-string';
 import { connect } from 'react-redux';
 import AuthHOC from './HOC/AuthHOC';
+import styled from 'styled-components';
 
 import { login } from './actions';
+import Button from '../shared/containers/Button';
+
+const Container = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+`;
 
 class Auth extends Component {
   onLogin = () => {
@@ -19,9 +28,11 @@ class Auth extends Component {
 
   render() {
     return (
-      <button onClick={this.onLogin}>
-        Sign in
-      </button>
+      <Container>
+        <Button onClick={this.onLogin}>
+          Sign in
+        </Button>
+      </Container>
     )
   }
 }

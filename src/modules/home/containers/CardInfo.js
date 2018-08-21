@@ -53,12 +53,6 @@ class CardInfo extends Component {
     }
   }
 
-  onChange = (e) => {
-    axios.put(`/devices/thermostats/4dBoOXRpX_akxgWM4eCHDj3m708tVO-i`, {
-      target_temperature_f: 70
-    });
-  }
-
   componentDidUpdate(prevProps) {
     const { device, history } = this.props;
     if (device === null) {

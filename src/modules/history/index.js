@@ -16,11 +16,9 @@ const Item = styled.div`
 `;
 
 
-
 class History extends Component {
   render() {
     const { items } = this.props;
-    console.log(items);
     return (
       <Container>
         {items && items.map((item, i) => {

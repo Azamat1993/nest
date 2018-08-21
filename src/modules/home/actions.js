@@ -14,7 +14,6 @@ export const setDevices = (data) => {
 }
 
 export const setDeviceProp = (data) => {
-  console.log('ation ')
   return {
     type: types.SET_DEVICE_PROP,
     payload: data

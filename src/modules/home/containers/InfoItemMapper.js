@@ -2,7 +2,10 @@ export default {
   target_temperature_f: {
     title: 'Temperature f',
     icon: 'temperature',
-    withCounter: true
+    withCounter: true,
+    changeable: true,
+    lowerLimit: 50,
+    upperLimit: 90
   },
   humidity: {
     title: 'Humidity',

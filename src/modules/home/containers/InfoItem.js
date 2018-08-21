@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import InfoItemMapper from './InfoItemMapper';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { setDeviceProp } from '../actions';
+
+import Range from '../../shared/containers/Range';
 
 const Container = styled.div`
   display: flex;
@@ -19,6 +24,15 @@ const Value = styled.div`
 `;
 
 class InfoItem extends PureComponent {
+  onChange = (e) => {
+    this.props.setDeviceProp({
+      device_id: this.props.item.device_id,
+      putObj: {
+        [e.target.name]: Number(e.target.value)
+      }
+    })
+  }
+
   render(){
     const { item } = this.props;
     return (<Container>
@@ -28,6 +42,9 @@ class InfoItem extends PureComponent {
             <Item>
               <Name>{InfoItemMapper[key].title}:</Name>
               <Value>{item[key]}</Value>
+              {InfoItemMapper[key].changeable &&
+              <Range name={key} onChange={this.onChange} max={InfoItemMapper[key].upperLimit} min={InfoItemMapper[key].lowerLimit} defaultValue={item[key]} />
+              }
             </Item>
           )
         }
@@ -36,4 +53,6 @@ class InfoItem extends PureComponent {
   }
 }
 
-export default InfoItem;
+export default connect(null, {
+  setDeviceProp
+})(InfoItem);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { combineEpics } from 'redux-observable';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { from } from 'rxjs';
 import * as types from './types';
 
@@ -29,7 +29,18 @@ const getDeviceEpic = action$ =>
     })
   )
 
+const setDevicePropEpic = action$ =>
+  action$
+  .ofType(types.SET_DEVICE_PROP)
+  .pipe(
+    debounceTime(1000),
+    switchMap(({payload}) => {
+      return from(axios.put(`/devices/thermostats/${payload.device_id}`, payload.putObj));
+    })
+  )
+
 export default combineEpics(
   getDevicesEpic,
-  getDeviceEpic
+  getDeviceEpic,
+  setDevicePropEpic
 )

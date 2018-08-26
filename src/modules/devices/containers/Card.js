@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Counter from './Counter';
 
@@ -29,17 +29,17 @@ const Subtitle = styled.h4`
 `
 
 const Card = ({item, itemType}) => {
-  const { name, device_id, target_temperature_f } = item;
-  return (
-    <Container>
-      <Link to={`/home/${itemType}/${device_id}`}>
-          <Title>{name}</Title>
-          <Subtitle>
-            <Counter value={target_temperature_f}/>
-          </Subtitle>
-      </Link>
-    </Container>
-  )
+    const {name, device_id, target_temperature_f} = item;
+    return (
+        <Container>
+            <Link to={`/devices/${itemType}/${device_id}`}>
+                <Title>{name}</Title>
+                <Subtitle>
+                    <Counter value={target_temperature_f}/>
+                </Subtitle>
+            </Link>
+        </Container>
+    )
 }
 
 export default Card;

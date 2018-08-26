@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import Button from '../containers/Button';
 
-import { connect } from 'react-redux';
-import { logout } from '../../auth/actions';
+import {connect} from 'react-redux';
+import {logout} from '../../auth/actions';
 
 const Container = styled.div`
   height: 8rem;
@@ -21,24 +21,24 @@ const Container = styled.div`
 `
 
 class Header extends PureComponent {
-  onLogout = () => {
-    this.props.logout();
-  }
-
-  render() {
-    if (!this.props.auth.loggedIn) {
-      return null;
+    onLogout = () => {
+        this.props.logout();
     }
-    return <Container>
-      <Button onClick={this.onLogout}>Log out</Button>
-    </Container>
-  }
+
+    render() {
+        if (!this.props.auth.loggedIn) {
+            return null;
+        }
+        return <Container>
+            <Button onClick={this.onLogout}>Log out</Button>
+        </Container>
+    }
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+    auth: state.auth
 })
 
 export default connect(mapStateToProps, {
-  logout
+    logout
 })(Header);

@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 
 import { setDevices } from './actions';
 import { setHistory } from '../history/actions';
-import { logout } from '../auth/actions';
 import AuthHOC from '../auth/HOC/AuthHOC';
 import Card from './containers/Card';
 import CardInfo from './containers/CardInfo';
@@ -18,9 +16,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-const InnerContainer = styled.div`
-`
 
 class Home extends Component {
   componentDidMount() {
@@ -41,15 +36,15 @@ class Home extends Component {
     const { devices } = this.props;
     return (
       <Container>
-        <InnerContainer>
+        <div>
           {devices && Object.keys(devices).map((deviceName, i) => {
             const device = devices[deviceName];
             return Object.keys(device).map((deviceKey, deviceIndex) => {
               return <Card item={device[deviceKey]} itemType={deviceName} key={deviceKey} />
             });
           })}
-        </InnerContainer>
-        <Route path="/home/:device_type/:device_id" component={CardInfo} />
+        </div>
+        <Route path="/devices/:device_type/:device_id" component={CardInfo} />
       </Container>
     )
   }

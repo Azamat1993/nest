@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -32,11 +32,11 @@ const Container = styled.button`
 
 const Button = (props) => (<Container onClick={props.onClick}>
     {props.children}
-  </Container>)
+</Container>)
 
 Button.propTypes = {
-  children: PropTypes.any,
-  onClick: PropTypes.func
+    children: PropTypes.any,
+    onClick: PropTypes.func
 }
 
 export default Button;

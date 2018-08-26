@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -91,26 +91,26 @@ const Input = styled.input`
 `
 
 class Range extends PureComponent {
-  render() {
-    const { onChange,max ,min, name ,defaultValue } = this.props;
-    return (
-      <Input type="range" name={name} onChange={onChange} max={max} min={min} defaultValue={defaultValue}/>
-    )
-  }
+    render() {
+        const {onChange, max, min, name, defaultValue} = this.props;
+        return (
+            <Input type="range" name={name} onChange={onChange} max={max} min={min} defaultValue={defaultValue}/>
+        )
+    }
 }
 
 Range.defaultProps = {
-  max: 100,
-  min: 0,
-  defaultValue: 50
+    max: 100,
+    min: 0,
+    defaultValue: 50
 }
 
 Range.propTypes = {
-  onChange: PropTypes.func,
-  max: PropTypes.number.isRequired,
-  min: PropTypes.number.isRequired,
-  defaultValue: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+    onChange: PropTypes.func,
+    max: PropTypes.number.isRequired,
+    min: PropTypes.number.isRequired,
+    defaultValue: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
 }
 
 export default Range;

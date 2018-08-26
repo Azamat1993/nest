@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import InfoItemMapper from './InfoItemMapper';
-import axios from 'axios';
+import Counter from './Counter';
 import { connect } from 'react-redux';
 import { setDeviceProp } from '../actions';
 
@@ -41,7 +41,8 @@ class InfoItem extends PureComponent {
           return (
             <Item>
               <Name>{InfoItemMapper[key].title}:</Name>
-              <Value>{item[key]}</Value>
+                {InfoItemMapper[key].withCounter && <Counter value={item[key]}/>}
+                {!InfoItemMapper[key].withCounter && <Value>{item[key]}</Value>}
               {InfoItemMapper[key].changeable &&
               <Range name={key} onChange={this.onChange} max={InfoItemMapper[key].upperLimit} min={InfoItemMapper[key].lowerLimit} defaultValue={item[key]} />
               }

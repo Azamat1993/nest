@@ -37,10 +37,6 @@ class Home extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-
-  }
-
   render(){
     const { devices } = this.props;
     return (

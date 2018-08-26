@@ -38,30 +38,7 @@ class Home extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { devices, setHistory } = this.props;
-    const prevDevices = prevProps.devices;
-    for (var device_type in devices) {
-      if (devices.hasOwnProperty(device_type) && prevDevices.hasOwnProperty(device_type)) {
-        var devices_group = devices[device_type];
-        var prev_devices_group = prevDevices[device_type];
-        for (var id in devices_group) {
-          var device = devices_group[id];
-          var prevDevice = prev_devices_group[id];
-          if (device && prevDevice) {
-            for (var prop in device) {
-              if (device[prop] !== prevDevice[prop]) {
-                setHistory({
-                  prevValue: prevDevice[prop],
-                  nextValue: device[prop],
-                  type: prop,
-                  device_id: id
-                });
-              }
-            }
-          }
-        }
-      }
-    }
+
   }
 
   render(){

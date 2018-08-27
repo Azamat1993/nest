@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import qs from 'query-string';
+import qs from 'querystring';
 import {connect} from 'react-redux';
 import AuthHOC from './HOC/AuthHOC';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ class Auth extends Component {
     }
 
     componentDidMount() {
-        const parsed = qs.parse(window.location.search) || {};
+        const parsed = qs.parse(window.location.search.slice(1)) || {};
         if (parsed.code) {
             this.props.login(parsed.code);
         }

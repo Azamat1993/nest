@@ -13,22 +13,16 @@ const Item = styled.div`
   &:not(:last-child) {
     margin-bottom: .5rem;
   }
-  
-  &.animated {
-    color:red;
-  }
 `;
 
 
 class History extends Component {
-    shouldAnimate = false;
     render() {
         const {items} = this.props;
         return (
             <Container>
                 {items && items.map((item, i) => {
-                    item.shouldAnimate = this.shouldAnimate;
-                    return <Item className={item.shouldAnimate && 'animated'} key={item.createdAt}>
+                    return <Item key={item.createdAt}>
                         <p>
                             <span>{InfoItemMapper[item.type].title}</span>
                             <span> changed from {item.prevValue}</span>
@@ -36,7 +30,6 @@ class History extends Component {
                         </p>
                     </Item>
                 })}
-                {!this.shouldAnimate && (this.shouldAnimate = true)}
             </Container>
         )
     }
